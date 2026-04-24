@@ -4,12 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/*
+    Product Model
+    This class represents the product entity in our e-commerce system.
+*/
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
-    // Unique identifier
+    // Unique identifier of the product
     private int id;
 
     // Product name
@@ -24,9 +29,9 @@ public class Product {
     // Product category
     private String category;
 
-    // Available stock
+    // Available stock quantity
     private int stockQuantity;
 
-    // Optional product image
+    // Optional image URL of the product
     private String imageUrl;
 }
