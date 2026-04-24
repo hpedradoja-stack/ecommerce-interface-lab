@@ -1,0 +1,26 @@
+# 1. Switch to main branch
+git checkout main
+# or
+git switch main
+
+# 2. Merge feature branch into main
+git merge feat:api-testing
+
+# 3. If there are merge conflicts:
+#    - Open conflicting files
+#    - Fix the code manually
+#    - Remove conflict markers (<<<<<<, ======, >>>>>>)
+
+# After fixing conflicts:
+
+git add .
+git commit -m "Resolved merge conflicts and merged feature branch"
+
+# 4. Push merged code to remote repository
+git push origin main
+
+# 5. Delete feature branch locally
+git branch -d feat:api-testing
+
+# 6. Delete feature branch remotely
+git push origin --delete feat:api-testing
