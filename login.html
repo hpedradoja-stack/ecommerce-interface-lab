@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<!-- Login Form -->
+<form id="loginForm" method="POST" action="/login">
+
+    <!-- CSRF token (important for Spring Security) -->
+    <input type="hidden" id="csrfToken" name="_csrf" />
+
+    <label>Username:</label>
+    <input type="text" name="username" required>
+
+    <br><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" required>
+
+    <br><br>
+
+    <button type="submit">Login</button>
+</form>
+
+<script>
+/**
+ * Step 1: Fetch CSRF token from backend
+ * Spring Security usually exposes it in the login page or session
+ */
+async function loadCsrfToken() {
+    try {
+        const response = await fetch("/login", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        const html = await response.text();
+
+        // Extract CSRF token from hidden input (if provided by Spring)
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        const token = doc.querySelector("input[name='_csrf']")?.value;
+
+        if (token) {
+            document.getElementById("csrfToken").value = token;
+        }
+
+    } catch (error) {
+        console.error("Error loading CSRF token:", error);
+    }
+}
+
+// Load CSRF token when page loads
+window.onload = loadCsrfToken;
+</script>
+
+</body>
+</html>
+
+git add .
+git commit -m "feat: frontend integrated with session-based auth and CSRF"
+git push origin main
