@@ -1,0 +1,33 @@
+/**
+ * Check if user is logged in before loading page
+ */
+async function checkAuth() {
+    try {
+        const response = await apiFetch("/api/v1/user/me");
+
+        if (!response || !response.ok) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        const user = await response.json();
+        console.log("Logged in as:", user);
+
+    } catch (error) {
+        console.error("Auth check failed:", error);
+        window.location.href = "login.html";
+    }
+}
+
+// Run on page load
+window.onload = checkAuth;
+apiFetch("/api/v1/orders", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(orderData)
+});
+git add .
+git commit -m "feat: handled auth errors and protected routes in frontend"
+git push origin main
